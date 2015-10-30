@@ -1,0 +1,21 @@
+<div class='container' id="demoBox">
+    Name:
+    <br />
+    <input type="text" data-ng-model="filter.name" /> Filtering by: {{ filter.name }}
+    <br />
+    <ul>
+        <li data-ng-repeat="cust in customers | filter :filter.name | orderBy:'city'">{{cust.name}} - {{cust.city}}</li>
+    </ul>
+    
+    
+    <form ng-submit="addCustomer()">
+    <br />
+    Customer Name:<br />
+    <input type="text" data-ng-model="newCustomer.name" />
+    <br />
+    Customer City:<br />
+    <input type="text" data-ng-model="newCustomer.city" />
+    <br />
+        <button type="submit" class="submitbutton">Add Customer</button>
+    </form>
+</div>
