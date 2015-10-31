@@ -8,13 +8,14 @@ module.exports = function(config){
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/components/**/*.js',
+      'app/barchart/*.js',
     ],
 
     autoWatch : true,
 
     frameworks: ['jasmine'],
 
-    browsers : ['Chrome', 'Firefox'],
+    browsers : ['Chrome'],
 
     plugins : [
             'karma-chrome-launcher',

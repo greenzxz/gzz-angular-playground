@@ -1,0 +1,24 @@
+<div class="container">
+    
+    Hello, World!
+    <br />
+    
+    <form novalidate class="css-form" id="inputArea" ng-submit="validateNums()">
+        <ul>
+            <li>
+                Expected value: <input type="text" ng-model="expectedPercentageInput" onkeypress="return isNumberKey(event)" >
+            </li>    
+            <li>
+                Actual value: <input type="text" ng-model="actualPercentageInput" onkeypress="return isNumberKey(event)" >
+            </li>
+        </ul>
+        <input type="submit" id="submit" value="Submit" /> <span id="input-warning">Values between 0.0 and 1.0, please.</span>
+    </form>
+    
+    <br />
+    <br />
+    
+    <div data-barchart expected="{{ expected }}" actual="{{ actual }}">
+        
+    </div>
+</div>

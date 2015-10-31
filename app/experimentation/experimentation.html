@@ -1,4 +1,13 @@
-<div class='container' id="demoBox">
+
+
+
+<div class="container" style="display: none"><br />
+<input type="text" ng-city="city" placeholder="Enter a city" />
+<div ng-sparkline ng-city="city"></div>
+<br />
+</div>
+
+<div class='container' id="demoBox" style="display: none">
     Name:
     <br />
     <input type="text" data-ng-model="filter.name" /> Filtering by: {{ filter.name }}
