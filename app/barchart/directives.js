@@ -54,11 +54,11 @@ barchart_directive.directive("barchart", function () {
                 }
             });
             
-            function getProgressColor(value) {
-                if (value <= .25) {
+            function getProgressColor(actualValue, referenceValue) {
+                if (actualValue <= 0.50 * referenceValue) {
                     return "red"
                 }
-                else if (value <= 0.5) {
+                else if (actualValue <= 0.75 * referenceValue) {
                     return "orange"
                 }
                 else {
@@ -68,8 +68,8 @@ barchart_directive.directive("barchart", function () {
             
             function drawProgressBar(actualValue, expectedValue) {
                 var data = [
-                    {inner: expectedInner, outer: expectedOuter, value: expectedValue},
-                    {inner: actualInner, outer: actualOuter, value: actualValue}
+                    {inner: expectedInner, outer: expectedOuter, value: expectedValue, name: 'expected'},
+                    {inner: actualInner, outer: actualOuter, value: actualValue, name: 'actual'}
                 ]
                 
                 var progress = group.selectAll("path.progressbar").data(data)
@@ -78,15 +78,27 @@ barchart_directive.directive("barchart", function () {
                     .append('path')
                     .attr('class', 'progressbar')
                     .attr('d', genericArc)
-                    .style("fill", function(d) {
-                        return getProgressColor(d.value);
+                    .style("fill", function(d, i) {
+                        if (d.name == 'expected') {
+                            // inner line, so nothing super interest
+                            return "LimeGreen"
+                        }
+                        else {
+                            return getProgressColor(actualValue, expectedValue);
+                        }
                     })
                     
                 progress.transition()
                         .delay(150)
                         .duration(500)
-                        .style("fill", function(d) {
-                            return getProgressColor(d.value);
+                        .style("fill", function(d, i) {
+                            if (d.name == 'expected') {
+                                // inner line, so nothing super interest
+                                return "LimeGreen"
+                            }
+                            else {
+                                return getProgressColor(actualValue, expectedValue);
+                            }
                         })
                         .attrTween('d', arcTween)
                     
