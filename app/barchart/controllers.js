@@ -33,7 +33,7 @@ var barchartControllers = angular.module('barchartControllers', [])
         
         $scope.validateNums = function() {
             // only perform any action if the inputs are numeric
-            var decimalRE = /^\d+(\.\d+)?$/;
+            var decimalRE = /^\d*(\.\d+)?$/;
             
             if (decimalRE.test($scope.expectedPercentageInput) && decimalRE.test($scope.actualPercentageInput)) {
                 if ($scope.expectedPercentageInput < 0.0 || $scope.expectedPercentageInput > 1.0 ||

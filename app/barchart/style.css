@@ -1,0 +1,22 @@
+.css-form input.ng-invalid.ng-touched {
+  background-color: #FA787E;
+}
+
+.css-form input.ng-valid.ng-touched {
+  background-color: #78FA89;
+}
+
+.progressPercentage {
+  fill: black;
+  font: 20px sans-serif
+  text-anchor: middle
+}
+
+.progressText {
+  fill: black;
+  font: 14px sans-serif
+  text-anchor: middle  
+}
+
+
+    
