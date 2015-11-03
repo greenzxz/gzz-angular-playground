@@ -50,38 +50,56 @@ describe('Barchart Module', function() {
         expect(scope.expected).toBe(0.5);
         expect(scope.actual).toBe(0.6);
     }));
-    
-    it('Barchart validation will set the expected values if passed valid input (rounding)', inject(function() {
-        scope.expected = 0.1;
-        scope.actual = 0.1;
-                
-        // rounding down
-        scope.expectedPercentageInput = "0.31000001";
-        scope.actualPercentageInput = "0.3149999";
-        scope.validateNums();
-        expect(scope.expected).toBe(0.31);
-        expect(scope.actual).toBe(0.31);
-                
-        // rounding up
-        scope.expectedPercentageInput = "0.5250001";
-        scope.actualPercentageInput = "0.52999999";
-        scope.validateNums();
-        expect(scope.expected).toBe(0.53);
-        expect(scope.actual).toBe(0.53);
-    }));
-    
+        
     it('Barchart validation should fail with empty string.', inject(function() {
         scope.expected = 0.2;
         scope.actual = 0.2;
         
-        scope.expectedPercentageInput = ""
-        scope.actualPercentageInput = ""
+        scope.expectedPercentageInput = "";
+        scope.actualPercentageInput = "";
         scope.validateNums();
         
         expect(scope.expected).toBe(0.2);
         expect(scope.actual).toBe(0.2);
     }));
     
+    it('Barchart validation should accept 0 and 1.', inject(function() {
+        scope.expected = 0.1;
+        scope.actual = 0.1;
+        
+        scope.expectedPercentageInput = "0";
+        scope.actualPercentageInput = "1";
+        scope.validateNums();
+        
+        expect(scope.expected).toBe(0);
+        expect(scope.actual).toBe(1);
+    }))
+    
+    
+    it('Barchart validation should accept with and without leading zero.', inject(function() {
+        scope.expected = 0.1;
+        scope.actual = 0.1;
+        
+        scope.expectedPercentageInput = "0.5";
+        scope.actualPercentageInput = ".5";
+        scope.validateNums();
+        
+        expect(scope.expected).toBe(.5);
+        expect(scope.actual).toBe(.5);
+    }))
+    
+    
+    it('Barchart validation should not accept bad decimal usage.', inject(function() {
+        scope.expected = 0.1;
+        scope.actual = 0.1;
+        
+        scope.expectedPercentageInput = "0.5.2";
+        scope.actualPercentageInput = "0.";
+        scope.validateNums();
+        
+        expect(scope.expected).toBe(.1);
+        expect(scope.actual).toBe(.1);
+    }))
     
     it('Barchart validation should fail with string inputs.', inject(function() {
         scope.expected = 0.2;
@@ -121,4 +139,11 @@ describe('Barchart Module', function() {
         expect(scope.actual).toBe(0.3);
     }));
   });
+  
+  describe('ProgressChart Directive', function() {
+    
+    // gzhang TODO: figure out how to get the directive testing to work with template URLs
+  });
+  
+  
 });

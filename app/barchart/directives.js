@@ -9,7 +9,6 @@ barchart_directive.directive("barchart", function () {
         scope: {
             expected: '@',
             actual: '@',
-            actualpercentagetext: '@'
         },
         link: function (scope, element, attrs) {
             
@@ -18,28 +17,23 @@ barchart_directive.directive("barchart", function () {
                 actualInner = 90,
                 actualOuter = 100;            
             
-            var canvas = d3.select('.chart').append('svg')
+            var canvas = d3.select('#chart_svg')
                 .attr('width', 400)
                 .attr('height', 400);
                 
-            var group = canvas.append('g')
+            var group = d3.select('#chart_group')
                 .attr('transform', 'translate(150, 150)')
             
-            var percentageText = group.append('text')
+            var percentageText = d3.select('#chart_center')
                 .attr('transform', 'translate(-20, -20)')
-            
-            percentageText.append('tspan')
-                .attr('class', 'progressPercentage')
-                .attr('x', 0)
-                .attr('y', 0)
-                .text(attrs.actualpercentagetext)
                 
-            percentageText.append('tspan')
-                .attr('class', 'progressText')
+            d3.select('.progressPercentage')
+                .attr('y', 0)
+            
+            d3.select('.progressText')
                 .attr('x', 0)
                 .attr('y', 20)
-                .text('Progress')
-                
+                            
             var genericArc = d3.svg.arc()
                 .innerRadius(function(d, i) { return d.inner; })
                 .outerRadius(function(d, i) { return d.outer; })
@@ -49,8 +43,6 @@ barchart_directive.directive("barchart", function () {
             scope.$watchGroup(['actual', 'expected'], function(newValues, oldValues, scope) {
                 if (newValues[0] != oldValues[0] || newValues[1] != oldValues[1]) {
                     drawProgressBar(newValues[0], newValues[1]);
-                    var actualProgressText = d3.select('.progressPercentage')
-                        .text(attrs.actualpercentagetext)
                 }
             });
             
