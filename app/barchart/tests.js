@@ -160,8 +160,20 @@ describe('Barchart Module', function() {
   });
   
   describe('ProgressChart Directive', function() {
+    var $compile, $rootScope;
     
-    // gzhang TODO: figure out how to get the directive testing to work with template URLs
+    beforeEach(module('barchart/partials/progress.html'))
+    
+    beforeEach(inject(function(_$compile_, _$rootScope_) {
+      $compile = _$compile_;
+      $rootScope = _$rootScope_;
+    }));
+    
+    // gzhang TODO: mock d3 ...
+    
+    // TODO: test that with invalid input to directive, good results still happen
+    // TODO: test that even if watch triggers with same values, no new images are drawn
+    // TODO: test the colors used by the progress bar is expected
   });
   
   
