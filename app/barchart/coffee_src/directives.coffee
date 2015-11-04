@@ -70,7 +70,8 @@ progressDirective.directive 'progressChart', ->
                 }
             ]
             
-            progressBars = group.selectAll("path.progressbar").data data
+            progressBars = group.selectAll "path.progressbar"
+                .data data
             
             progressBars.enter()
                 .append 'path'

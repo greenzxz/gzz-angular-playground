@@ -12,6 +12,14 @@ build = (callback) ->
     coffee.on 'exit', (code) ->
         callback?() if code is 0
 
-task 'build', 'Build ./ from src/', ->
+task 'watch', 'Watch coffee_src/ for changes', ->
+    coffee = spawn 'coffee', ['-w', '-c', '-o', './', 'coffee_src']
+    coffee.stderr.on 'data', (data) ->
+        process.stderr.write data.toString()
+    coffee.stdout.on 'data', (data) ->
+        print data.toString()
+
+
+task 'build', 'Build ./ from coffee_src/', ->
     build()
 

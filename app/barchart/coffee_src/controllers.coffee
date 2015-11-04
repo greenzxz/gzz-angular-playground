@@ -16,7 +16,11 @@ app.controller 'ProgressInputController', ['$scope', 'progressChartFactory',
             $scope.validateNums()
             
         $scope.validateNums = ->
-            decimalRE = /^(0|1|(0?\.\d+))$/
+            decimalRE = /// ^ (?:
+                (?:(?:0|1)(?:\.0+)?) # 0 or 1 followed by an optional decimal point and 0s
+              | (?:0?(?:\.\d+))      # optional 0 followed by decimal point and one or more digits
+              )$
+            ///
             
             if decimalRE.test($scope.expectedPercentageInput) and decimalRE.test($scope.actualPercentageInput)
                 $scope.expected = Number($scope.expectedPercentageInput)

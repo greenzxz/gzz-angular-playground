@@ -76,6 +76,18 @@ describe('Barchart Module', function() {
     }))
     
     
+    it('Barchart validation should accept 0 and 1 followed by 0s.', inject(function() {
+        scope.expected = 0.1;
+        scope.actual = 0.1;
+        
+        scope.expectedPercentageInput = "0.00";
+        scope.actualPercentageInput = "1.0";
+        scope.validateNums();
+        
+        expect(scope.expected).toBe(0);
+        expect(scope.actual).toBe(1);
+    }))
+    
     it('Barchart validation should accept with and without leading zero.', inject(function() {
         scope.expected = 0.1;
         scope.actual = 0.1;
@@ -95,6 +107,13 @@ describe('Barchart Module', function() {
         
         scope.expectedPercentageInput = "0.5.2";
         scope.actualPercentageInput = "0.";
+        scope.validateNums();
+        
+        expect(scope.expected).toBe(.1);
+        expect(scope.actual).toBe(.1);
+        
+        scope.expectedPercentageInput = ".";
+        scope.actualPercentageInput = "..0";
         scope.validateNums();
         
         expect(scope.expected).toBe(.1);
@@ -128,15 +147,15 @@ describe('Barchart Module', function() {
     
     
     it('Barchart should reject values greater than 1.0', inject(function() {
-        scope.expected = 0.3;
-        scope.actual = 0.3;
+        scope.expected = 0.4;
+        scope.actual = 0.4;
         
         scope.expectedPercentageInput = "3.0"
         scope.actualPercentageInput = "1.0000001"
         scope.validateNums();
         
-        expect(scope.expected).toBe(0.3);
-        expect(scope.actual).toBe(0.3);
+        expect(scope.expected).toBe(0.4);
+        expect(scope.actual).toBe(0.4);
     }));
   });
   
