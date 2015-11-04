@@ -4,15 +4,15 @@
 
 angular.module('gzzBarchart', [
     'ngRoute',
-    'barchartControllers',
-    'barchartDirecive',
-    'barchartFilters',
+    'progressChartControllers',
+    'progressChartDirective',
+    'progressChartFilters',
     ])
 
 .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/barchart', {
         templateUrl: 'barchart/partials/barchart.html',
-        controller: 'BarchartController',
+        controller: 'ProgressInputController',
     });
-    //$routeProvider.otherwise({redirectTo: '/barchart'});
+    $routeProvider.otherwise({redirectTo: '/barchart'});
 }]);

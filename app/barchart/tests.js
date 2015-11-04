@@ -28,7 +28,7 @@ describe('Barchart Module', function() {
   describe('Barchart controller', function(){
     beforeEach(inject(function ($rootScope, $controller) {
         scope = $rootScope.$new();
-        ctrl = $controller('BarchartController', {$scope: scope});
+        ctrl = $controller('ProgressInputController', {$scope: scope});
     }));
     
     it('Barchart should have default values between 0.0 and 1.0', inject(function() {
