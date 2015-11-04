@@ -69,10 +69,11 @@ barchart_directive.directive("barchart", function () {
                 progress.enter()
                     .append('path')
                     .attr('class', 'progressbar')
+                    .attr('id', function(d) { return d.name+"Path"; })
                     .attr('d', genericArc)
                     .style("fill", function(d, i) {
                         if (d.name == 'expected') {
-                            // inner line, so nothing super interest
+                            // inner line, so nothing super interesting
                             return "LimeGreen"
                         }
                         else {
