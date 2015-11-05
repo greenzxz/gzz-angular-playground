@@ -10,13 +10,13 @@ describe('Barchart Module', function() {
             return {
                 compare: function (actual, expectedLow, expectedHigh) {
                     var result = {};
-                    var bound_str = "["  + expectedLow + "," + expectedHigh + "]"
+                    var bound_str = '['  + expectedLow + ',' + expectedHigh + ']'
                     result.pass = actual >= expectedLow && actual <= expectedHigh;
                     if (result.pass) {
-                        result.message = "Expected " + actual + " to be outside bounds of " + bound_str
+                        result.message = 'Expected ' + actual + ' to be outside bounds of ' + bound_str
                     }
                     else {
-                        result.message = "Expected " + actual + " to be within bounds of " + bound_str
+                        result.message = 'Expected ' + actual + ' to be within bounds of ' + bound_str
                     }
                     return result;
                 }
@@ -43,8 +43,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.1;
         scope.actual = 0.1;
         
-        scope.expectedPercentageInput = "0.5";
-        scope.actualPercentageInput = "0.6";
+        scope.expectedPercentageInput = '0.5';
+        scope.actualPercentageInput = '0.6';
         scope.validateNums();
         
         expect(scope.expected).toBe(0.5);
@@ -55,8 +55,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.2;
         scope.actual = 0.2;
         
-        scope.expectedPercentageInput = "";
-        scope.actualPercentageInput = "";
+        scope.expectedPercentageInput = '';
+        scope.actualPercentageInput = '';
         scope.validateNums();
         
         expect(scope.expected).toBe(0.2);
@@ -67,8 +67,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.1;
         scope.actual = 0.1;
         
-        scope.expectedPercentageInput = "0";
-        scope.actualPercentageInput = "1";
+        scope.expectedPercentageInput = '0';
+        scope.actualPercentageInput = '1';
         scope.validateNums();
         
         expect(scope.expected).toBe(0);
@@ -80,8 +80,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.1;
         scope.actual = 0.1;
         
-        scope.expectedPercentageInput = "0.00";
-        scope.actualPercentageInput = "1.0";
+        scope.expectedPercentageInput = '0.00';
+        scope.actualPercentageInput = '1.0';
         scope.validateNums();
         
         expect(scope.expected).toBe(0);
@@ -92,8 +92,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.1;
         scope.actual = 0.1;
         
-        scope.expectedPercentageInput = "0.5";
-        scope.actualPercentageInput = ".5";
+        scope.expectedPercentageInput = '0.5';
+        scope.actualPercentageInput = '.5';
         scope.validateNums();
         
         expect(scope.expected).toBe(.5);
@@ -105,15 +105,15 @@ describe('Barchart Module', function() {
         scope.expected = 0.1;
         scope.actual = 0.1;
         
-        scope.expectedPercentageInput = "0.5.2";
-        scope.actualPercentageInput = "0.";
+        scope.expectedPercentageInput = '0.5.2';
+        scope.actualPercentageInput = '0.';
         scope.validateNums();
         
         expect(scope.expected).toBe(.1);
         expect(scope.actual).toBe(.1);
         
-        scope.expectedPercentageInput = ".";
-        scope.actualPercentageInput = "..0";
+        scope.expectedPercentageInput = '.';
+        scope.actualPercentageInput = '..0';
         scope.validateNums();
         
         expect(scope.expected).toBe(.1);
@@ -124,8 +124,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.2;
         scope.actual = 0.2;
         
-        scope.expectedPercentageInput = "something 23423 not a number"
-        scope.actualPercentageInput = "1+2"
+        scope.expectedPercentageInput = 'something 23423 not a number'
+        scope.actualPercentageInput = '1+2'
         scope.validateNums();
         
         expect(scope.expected).toBe(0.2);
@@ -137,8 +137,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.3;
         scope.actual = 0.3;
         
-        scope.expectedPercentageInput = "-12"
-        scope.actualPercentageInput = "-0.0000001"
+        scope.expectedPercentageInput = '-12'
+        scope.actualPercentageInput = '-0.0000001'
         scope.validateNums();
         
         expect(scope.expected).toBe(0.3);
@@ -150,8 +150,8 @@ describe('Barchart Module', function() {
         scope.expected = 0.4;
         scope.actual = 0.4;
         
-        scope.expectedPercentageInput = "3.0"
-        scope.actualPercentageInput = "1.0000001"
+        scope.expectedPercentageInput = '3.0'
+        scope.actualPercentageInput = '1.0000001'
         scope.validateNums();
         
         expect(scope.expected).toBe(0.4);
