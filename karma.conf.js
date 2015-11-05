@@ -10,6 +10,7 @@ module.exports = function(config){
     files : [
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-route/angular-route.js',
+      'app/bower_components/d3/d3.min.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/components/**/*.js',
       'app/barchart/*.js',

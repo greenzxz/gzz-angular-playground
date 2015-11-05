@@ -4,30 +4,42 @@ progressDirective = angular.module 'progressChartDirective', []
 
 progressDirective.directive 'progressChart', ->
     restrict: 'A'
-    templateUrl: 'barchart/partials/progress.html'
+    template: '<div class="progress-chart" id="the-progress-chart"></div>'
     scope:
         expected: '@'
         actual: '@'
     link: (scope) ->
-        expectedInner = 84
-        expectedOuter = 87
-        actualInner = 90
-        actualOuter = 100
+        expectedInner = 60
+        expectedOuter = 62
+        actualInner = 65
+        actualOuter = 70
         
-        canvas = d3.select '#chart_svg'
+        canvas = d3.select '#the-progress-chart'
+        
+        svg = canvas.append 'svg'
+            .attr 'id', 'chart_svg'
             .attr 'width',400
             .attr 'height',400
             
-        group = d3.select '#chart_group'
+        group = svg.append 'g'
+            .attr 'id', 'chart_group'
             .attr 'transform','translate(150, 150)'
         
-        percentageText = d3.select '#chart_center'
-            .attr 'transform', 'translate(-20, -20)'
+        percentageTextGroup = group.append 'text'
+            .attr 'id', 'chart_center'
+            .attr 'transform', 'translate(-35, -12)'
 
-        d3.select '.progressPercentage'
-            .attr('x', 0).attr('y', 0)
-        d3.select '.progressText'
-            .attr('x', 0).attr('y', 20)
+        percentageTextGroup.append 'tspan'
+            .attr 'id', 'progressPercentage'
+            .attr 'dx', 0
+            .attr 'dy', 0
+            .style 'font', '28px sans-serif'
+        
+        percentageTextGroup.append 'tspan'
+            .attr 'id', 'progressText'
+            .attr 'x', 0
+            .attr 'dy', 20
+            .text 'Progress'
         
         genericArc = d3.svg.arc()
             .innerRadius (d, i) -> return d.inner
@@ -36,13 +48,14 @@ progressDirective.directive 'progressChart', ->
             .endAngle (d) -> return d.value * 2 * Math.PI
             
         scope.$watchGroup ['actual', 'expected'], (newValues, oldValues, scope) ->
-            if newValues[0] < 0 or newValues[0] > 1
-                newValues[0] = 0.0
-            if newValues[1] < 0 or newValues[1] > 1
-                newValues[1] = 0.0
+            if newValues[0] isnt oldValues[0] or newValues[1] isnt oldValues[1]
+                if newValues[0] < 0 or newValues[0] > 1
+                    scope.actual = 0.0
+                if newValues[1] < 0 or newValues[1] > 1
+                    scope.expected = 0.0
                 
-            if newValues[0] isnt oldValues[0] or newValues[1] isnt oldValues[0]
-                drawProgressBar(newValues[0], newValues[1])
+                drawProgressBar(scope.actual, scope.expected)
+                
                 
         getProgressColor = (value, referenceValue) ->
             if value <= 0.50 * referenceValue
@@ -85,6 +98,9 @@ progressDirective.directive 'progressChart', ->
                 .attrTween 'd', arcTween
                 
             progressBars.exit().remove()
+            
+            d3.select '#progressPercentage'
+                .text d3.format('#.0%')(actualValue)
             
         
         arcTween = (d) ->

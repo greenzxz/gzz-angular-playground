@@ -160,19 +160,28 @@ describe('Barchart Module', function() {
   });
   
   describe('ProgressChart Directive', function() {
-    var $compile, $rootScope;
-    
-    beforeEach(module('barchart/partials/progress.html'))
+    var element, scope, $compile
     
     beforeEach(inject(function(_$compile_, _$rootScope_) {
+      element =  angular.element('<div data-progress-chart expected="{{expected}}" actual="{{actual}}"></div>');
+      
+      scope = _$rootScope_.$new();
       $compile = _$compile_;
-      $rootScope = _$rootScope_;
+      scope.$apply(function() {
+        scope.expected = 0.5;
+        scope.actual = 0.5;
+      });
+      $compile(element)(scope)
     }));
     
-    // gzhang TODO: mock d3 ...
+    it('Should compile a directive right', inject(function() {
+      expect(element).toBeDefined()
+    }));
     
     // TODO: test that with invalid input to directive, good results still happen
     // TODO: test that even if watch triggers with same values, no new images are drawn
+
+        
     // TODO: test the colors used by the progress bar is expected
   });
   
