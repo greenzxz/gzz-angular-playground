@@ -97,6 +97,20 @@ describe('Simple GZZ app', function() {
       
       expect(element(by.id('actual-path')).getAttribute('style')).toContain('fill: rgb(0, 128, 0)')
     });
+    
+    it('Color of outside path should be based on actual input even if rounding changes.', function() {
+      element(by.model('actualPercentageInput')).clear();
+      element(by.model('expectedPercentageInput')).clear();
+      element(by.model('expectedPercentageInput')).sendKeys('0.8');
+      element(by.model('actualPercentageInput')).sendKeys('0.5999');
+      element(by.id('inputArea')).submit();
+      
+      browser.sleep(800)  // helps ensure that the transitional colors are not tested
+      
+      
+      expect(element(by.id('progress-percentage')).getText()).toBe('60');
+      expect(element(by.id('actual-path')).getAttribute('style')).toContain('fill: rgb(255, 165, 0)')
+    });
   });
 
 });
