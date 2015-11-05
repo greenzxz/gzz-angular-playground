@@ -27,19 +27,26 @@ progressDirective.directive 'progressChart', ->
         
         percentageTextGroup = group.append 'text'
             .attr 'id', 'chart_center'
-            .attr 'transform', 'translate(-35, -12)'
+            .attr 'transform', 'translate(-28, -10)'
 
         percentageTextGroup.append 'tspan'
-            .attr 'id', 'progressPercentage'
+            .attr 'id', 'progress-percentage'
             .attr 'dx', 0
             .attr 'dy', 0
             .style 'font', '28px sans-serif'
+            .attr 'text-anchor', 'right'
+            
+        percentageTextGroup.append 'tspan'
+            .attr 'id', 'progress-percentage-mark'
+            .style 'font', '16px sans-serif'
+            .text '%'
         
         percentageTextGroup.append 'tspan'
-            .attr 'id', 'progressText'
-            .attr 'x', 0
-            .attr 'dy', 20
+            .attr 'id', 'progress-text'
+            .attr 'x', -2
+            .attr 'y', 20
             .text 'Progress'
+            .style 'font', '16px serif'
         
         genericArc = d3.svg.arc()
             .innerRadius (d, i) -> return d.inner
@@ -59,23 +66,23 @@ progressDirective.directive 'progressChart', ->
                 
         getProgressColor = (value, referenceValue) ->
             if value <= 0.50 * referenceValue
-                "rgb(255, 0, 0)"
+                'rgb(255, 0, 0)'
             else if value <= 0.75 * referenceValue
-                "rgb(255, 165, 0)"
+                'rgb(255, 165, 0)'
             else
-                "rgb(0, 128, 0)"
+                'rgb(0, 128, 0)'
                 
         drawProgressBar = (actualValue, expectedValue) ->
             data = [
                 {
-                    name: "expected"
+                    name: 'expected'
                     inner: expectedInner
                     outer: expectedOuter
                     value: expectedValue
                     fill:  'LimeGreen'
                 },
                 {
-                    name: "actual"
+                    name: 'actual'
                     inner: actualInner
                     outer: actualOuter
                     value: actualValue
@@ -83,13 +90,13 @@ progressDirective.directive 'progressChart', ->
                 }
             ]
             
-            progressBars = group.selectAll "path.progressbar"
+            progressBars = group.selectAll 'path.progressbar'
                 .data data
             
             progressBars.enter()
                 .append 'path'
                 .attr 'class', 'progressbar'
-                .attr 'id', (d) -> d.name + "Path"
+                .attr 'id', (d) -> d.name + '-path'
             
             progressBars.transition()
                 .delay 150 # personally thinks this looks a bit better with a short delay
@@ -99,8 +106,8 @@ progressDirective.directive 'progressChart', ->
                 
             progressBars.exit().remove()
             
-            d3.select '#progressPercentage'
-                .text d3.format('#.0%')(actualValue)
+            d3.select '#progress-percentage'
+                .text d3.format('0f')(actualValue*100)
             
         
         arcTween = (d) ->
